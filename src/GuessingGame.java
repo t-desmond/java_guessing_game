@@ -15,6 +15,14 @@ public class GuessingGame {
         System.out.println(randomNumber);
 
         MainGame.play(MAX_ATTEMPS, randomNumber, scanner);
+
+        boolean continueResponse = GetValidInput.getValidContinueResponse(scanner);
+
+        if (continueResponse) {
+            MainGame.play(MAX_ATTEMPS, randomNumber, scanner);
+        } else {
+            System.out.println("Exited");
+        }
         scanner.close();
     }
 }

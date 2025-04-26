@@ -3,22 +3,29 @@ import java.util.Scanner;
 public class GetValidInput {
   public static int getValidNumber(Scanner scanner) {
     while (!scanner.hasNextInt()) {
-      System.out.println("enter a valid integer");
+      System.out.print(Colors.PURPLE + "\nEnter a valid integer: " + Colors.RESET);
       scanner.next();
     }
     return scanner.nextInt();
   }
 
   public static boolean getValidContinueResponse(Scanner scanner) {
+    String boldYes = Colors.BOLD + "yes";
+    String boldNo = Colors.BOLD + "no";
 
-    System.out.print("Do you want to continue: [yes|no] ");
+    System.out.printf(
+        Colors.CYAN + "\nDo you want to continue: [%s|%s" + Colors.RESET + Colors.CYAN + "]: " + Colors.RESET, boldYes,
+        boldNo);
     String response = scanner.next().toLowerCase();
 
     while (!response.equals("yes") && !response.equals("no")) {
-      System.out.println("enter a valid response: [yes|no]");
-      scanner.next();
+      System.out.printf(
+          Colors.PURPLE + "\nEnter a valid response: [%s|%s" + Colors.RESET + Colors.PURPLE + "]: " + Colors.RESET,
+          boldYes, boldNo);
+      response = scanner.next().toLowerCase();
     }
-    
+
     return response.equals("yes");
   }
+
 }
