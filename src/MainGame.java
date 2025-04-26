@@ -63,9 +63,10 @@ public class MainGame {
     
     public static void readResults(Path result) {
 
+        System.out.println();
         if (result != null) {
             try {
-                String contents = Files.readString(result); 
+                String contents = Files.readString(result);
                 System.out.println("=== Game Results ===");
                 System.out.println(contents);
             } catch (IOException e) {
