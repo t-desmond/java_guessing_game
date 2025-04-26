@@ -9,16 +9,16 @@ public class GuessingGame {
     System.out.println(randomNumber);
 
     for (int i = 0; i <= 3; i++) {
-      System.out.print("Enter the number:  " );
+      System.out.print(Colors.BLUE + "Enter the number:  " + Colors.RESET);
       int userInput = scanner.nextInt();
       if (userInput == randomNumber) {
-        System.out.println("you win");
+        System.out.println(Colors.GREEN + "you win" + Colors.RESET);
         break;
       } else {
         if (i < 3) {
-          System.out.println("wrong guess, " + (3 - i) + " tries left");
+          System.out.println(Colors.RED + "wrong guess, "+ Colors.BOLD + (3 - i) + Colors.RESET + Colors.RED + " tries left" + Colors.RESET);
         } else {
-          System.out.println("you loose, correct guess was: " + randomNumber);
+          System.out.println(Colors.RED + "you loose, correct guess was: " + Colors.BOLD + randomNumber + Colors.RESET + Colors.RESET);
         }
       }
     }
