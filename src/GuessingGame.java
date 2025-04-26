@@ -16,7 +16,7 @@ public class GuessingGame {
 
         for (int i = 0; i <= MAX_ATTEMPS; i++) {
             System.out.print(Colors.BLUE + "Enter the number:  " + Colors.RESET);
-            int userInput = scanner.nextInt();
+            int userInput = GetValidNumber.getValidNumber(scanner);
             if (userInput == randomNumber) {
                 System.out.println(Colors.GREEN + "you win" + Colors.RESET);
                 break;
