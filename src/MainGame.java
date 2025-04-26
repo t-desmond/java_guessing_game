@@ -42,17 +42,36 @@ public class MainGame {
         return gameResult;
     }
 
-    public static void playAndSave(int MAX_ATTEMPTS, Scanner scanner) {
+    public static Path playAndSave(int MAX_ATTEMPTS, Scanner scanner) {
         String gameResults = MainGame.play(MAX_ATTEMPTS, scanner);
+        return saveToFile(gameResults);
+    }
 
+    private static Path saveToFile(String result) {
         try {
-            final Path path = Files.createTempFile("gameResults", ".log");
-            Files.write(path, gameResults.getBytes());
+            Path path = Files.createTempFile("gameResults", ".log");
+            Files.write(path, result.getBytes());
             path.toFile().deleteOnExit();
-
+            return path;
         } catch (IOException e) {
+            System.out.println("Failed to save game result.");
             e.printStackTrace();
+            return null;
         }
 
+    }
+    
+    public static void readResults(Path result) {
+
+        if (result != null) {
+            try {
+                String contents = Files.readString(result); 
+                System.out.println("=== Game Results ===");
+                System.out.println(contents);
+            } catch (IOException e) {
+                System.out.println("Could not read from file.");
+                e.printStackTrace();
+            }
+        }
     }
 }

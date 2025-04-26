@@ -4,20 +4,22 @@ public class GuessingGame {
     private static final int MAX_ATTEMPTS = 3;
 
     public static void main(String[] args) {
-
-        System.out.println(Colors.YELLOW + Colors.BOLD + "WELCOME TO GUESSING GAME" + Colors.RESET);
+        System.out.println(Colors.YELLOW + Colors.BOLD + "\nWELCOME TO GUESSING GAME" + Colors.RESET);
 
         Scanner scanner = new Scanner(System.in);
-        
-        MainGame.playAndSave(MAX_ATTEMPTS, scanner);
+        boolean keepPlaying = true;
 
-        boolean continueResponse = GetValidInput.getValidContinueResponse(scanner);
+        while (keepPlaying) {
+            System.out.println();
+            Menu.printMenu();
+            Menu.menuChoice(MAX_ATTEMPTS, scanner);
 
-        if (continueResponse) {
-            MainGame.playAndSave(MAX_ATTEMPTS, scanner);
-        } else {
-            System.out.println("Exited");
+            keepPlaying = GetValidInput.getValidContinueResponse(scanner);
+            if (!keepPlaying) {
+                System.out.println(Colors.RED + "\nExited the game. Goodbye!" + Colors.RESET);
+            }
         }
+
         scanner.close();
     }
 }
