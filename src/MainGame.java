@@ -31,6 +31,7 @@ public class MainGame {
         System.out.println(randomNumber);
 
         int numberOfAttemptsMade = 0;
+        boolean gameSessionStatusSuccess = false;
         StringBuilder gameResult = new StringBuilder();
 
         for (int i = 1; i <= MAX_ATTEMPTS; i++) {
@@ -40,6 +41,7 @@ public class MainGame {
                 String result = String.format(Colors.GREEN + "you win" + Colors.RESET);
                 System.out.println(result);
                 gameResult.append(String.format(result + "; "));
+                gameSessionStatusSuccess = true;
                 break;
             } else {
                 if (i < MAX_ATTEMPTS) {
@@ -68,7 +70,11 @@ public class MainGame {
             }
             numberOfAttemptsMade = i;
         }
-        gameResult.append(String.format(Colors.BOLD + "Succeeded in %d attempts" + Colors.RESET, numberOfAttemptsMade + 1));
+        if (gameSessionStatusSuccess){
+            gameResult.append(String.format(Colors.BOLD + "Succeeded in %d attempts" + Colors.RESET, numberOfAttemptsMade + 1));
+        } else {
+            gameResult.append("FAILED TO GUESS!!");
+        }
         return gameResult.toString();
     }
 
@@ -139,8 +145,7 @@ public class MainGame {
 
                 List<String> lines = Files.readAllLines(filePath);
                 System.out.println(Colors.YELLOW + "\n=== Game Results ===" + Colors.RESET);
-
-                System.out.println(lines);
+                
                 for (int line = 0; line < lines.size(); line++) {
                     System.out.printf(Colors.PURPLE + "Game %d: " + Colors.RESET + "%s\n", line + 1, lines.get(line));
                 }
