@@ -31,7 +31,7 @@ public class MainGame {
         System.out.println(randomNumber);
 
         int numberOfAttemptsMade = 0;
-        String gameResult = "";
+        StringBuilder gameResult = new StringBuilder();
 
         for (int i = 1; i <= MAX_ATTEMPTS; i++) {
             System.out.print(Colors.BLUE + "Enter the number:  " + Colors.RESET);
@@ -39,7 +39,7 @@ public class MainGame {
             if (userInput == randomNumber) {
                 String result = String.format(Colors.GREEN + "you win" + Colors.RESET);
                 System.out.println(result);
-                gameResult += result;
+                gameResult.append(String.format(result + "; "));
                 break;
             } else {
                 if (i < MAX_ATTEMPTS) {
@@ -48,7 +48,7 @@ public class MainGame {
                                 Colors.RED + "Too big, " + Colors.BOLD + (MAX_ATTEMPTS - i) + Colors.RESET + Colors.RED
                                         + " tries left" + Colors.RESET);
                         System.out.println(result);
-                        gameResult += result;
+                        gameResult.append(String.format(result + "; "));
                     } else {
                         String result = String
                                 .format(Colors.RED + "Too small, " + Colors.BOLD + (MAX_ATTEMPTS - i) + Colors.RESET
@@ -56,20 +56,20 @@ public class MainGame {
                                         + " tries left" + Colors.RESET);
                         System.out
                                 .println(result);
-                        gameResult += result;
+                        gameResult.append(String.format(result + "; "));
                     }
                 } else {
                     String result = String
                             .format(Colors.RED + "you loose, correct guess was: " + Colors.BOLD + randomNumber
                                     + Colors.RESET + Colors.RESET);
                     System.out.println(result);
-                    gameResult += result;
+                    gameResult.append(String.format(result + "; "));
                 }
             }
             numberOfAttemptsMade = i;
         }
-        gameResult.concat(String.format("Succeeded in %d attempts", numberOfAttemptsMade + 1));
-        return gameResult;
+        gameResult.append(String.format(Colors.BOLD + "Succeeded in %d attempts" + Colors.RESET, numberOfAttemptsMade + 1));
+        return gameResult.toString();
     }
 
     /**
@@ -140,6 +140,7 @@ public class MainGame {
                 List<String> lines = Files.readAllLines(filePath);
                 System.out.println(Colors.YELLOW + "\n=== Game Results ===" + Colors.RESET);
 
+                System.out.println(lines);
                 for (int line = 0; line < lines.size(); line++) {
                     System.out.printf(Colors.PURPLE + "Game %d: " + Colors.RESET + "%s\n", line + 1, lines.get(line));
                 }
