@@ -4,6 +4,7 @@ public class GuessingGame {
     private static final int MAX_ATTEMPTS = 3;
 
     public static void main(String[] args) {
+        MainGame.initSessionFile();
         System.out.println(Colors.YELLOW + Colors.BOLD + "\nWELCOME TO GUESSING GAME" + Colors.RESET);
 
         Scanner scanner = new Scanner(System.in);

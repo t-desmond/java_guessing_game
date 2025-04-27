@@ -1,10 +1,15 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class MainGame {
+    private static Path sessionTempFile;
+
     public static String play(int MAX_ATTEMPTS, Scanner scanner) {
         Random random = new Random();
 
@@ -47,32 +52,49 @@ public class MainGame {
         return saveToFile(gameResults);
     }
 
-    private static Path saveToFile(String result) {
+    public static void initSessionFile() {
         try {
-            Path path = Files.createTempFile("gameResults", ".log");
-            Files.write(path, result.getBytes());
-            path.toFile().deleteOnExit();
-            return path;
+            sessionTempFile = Files.createTempFile("game_results", ".log");
+            sessionTempFile.toFile().deleteOnExit();
         } catch (IOException e) {
-            System.out.println("Failed to save game result.");
+            System.out.println("Could not initialize session file.");
             e.printStackTrace();
+        }
+    }
+
+    private static Path saveToFile(String result) {
+        if (sessionTempFile == null) {
+            System.out.println("Session file not initialized.");
             return null;
         }
 
-    }
-    
-    public static void readResults(Path result) {
-
-        System.out.println();
-        if (result != null) {
-            try {
-                String contents = Files.readString(result);
-                System.out.println("=== Game Results ===");
-                System.out.println(contents);
-            } catch (IOException e) {
-                System.out.println("Could not read from file.");
-                e.printStackTrace();
-            }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(sessionTempFile.toFile(), true))) {
+            writer.write(result);
+            writer.newLine();
+            return sessionTempFile;
+        } catch (IOException e) {
+            System.out.println("Error writing to session file.");
+            e.printStackTrace();
+            return null;
         }
     }
+
+    public static void readResults(Path filePath) {
+    if (filePath != null && Files.exists(filePath)) {
+        try {
+            List<String> lines = Files.readAllLines(filePath);
+            System.out.println(Colors.YELLOW + "\n=== Game Results ===" + Colors.RESET);
+            for (String line : lines) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println(Colors.RED + "Error reading the game results." + Colors.RESET);
+            e.printStackTrace();
+        }
+    } else {
+        System.out.println(Colors.RED + "No results found or file does not exist." + Colors.RESET);
+    }
+}
+
+
 }
