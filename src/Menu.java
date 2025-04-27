@@ -20,7 +20,11 @@ public class Menu {
                 lastGameResult = MainGame.playAndSave(MAX_ATTEMPTS, scanner);
                 break;
             case 2:
+            if (lastGameResult == null) {
+                System.out.println(Colors.RED + "\nNo game results found. Please play a game first." + Colors.RESET);
+            } else {
                 MainGame.readResults(lastGameResult);
+            }
                 break;
             default:
                 System.out.println(Colors.RED + "Invalid choice. Please select 1 or 2." + Colors.RESET);
