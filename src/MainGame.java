@@ -33,7 +33,7 @@ public class MainGame {
         int numberOfAttemptsMade = 0;
         String gameResult = "";
 
-        for (int i = 0; i <= MAX_ATTEMPTS; i++) {
+        for (int i = 1; i <= MAX_ATTEMPTS; i++) {
             System.out.print(Colors.BLUE + "Enter the number:  " + Colors.RESET);
             int userInput = GetValidInput.getValidNumber(scanner);
             if (userInput == randomNumber) {
