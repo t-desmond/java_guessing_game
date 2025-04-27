@@ -17,33 +17,44 @@ public class MainGame {
         System.out.println(randomNumber);
 
         int numberOfAttemptsMade = 0;
+        String gameResult = "";
+
         for (int i = 0; i <= MAX_ATTEMPTS; i++) {
             System.out.print(Colors.BLUE + "Enter the number:  " + Colors.RESET);
             int userInput = GetValidInput.getValidNumber(scanner);
             if (userInput == randomNumber) {
-                System.out.println(Colors.GREEN + "you win" + Colors.RESET);
+                String result = String.format(Colors.GREEN + "you win" + Colors.RESET);
+                System.out.println(result);
+                gameResult += result;
                 break;
             } else {
                 if (i < MAX_ATTEMPTS) {
                     if (userInput > randomNumber) {
-                        System.out.println(
+                        String result = String.format(
                                 Colors.RED + "Too big, " + Colors.BOLD + (MAX_ATTEMPTS - i) + Colors.RESET + Colors.RED
                                         + " tries left" + Colors.RESET);
+                        System.out.println(result);
+                        gameResult += result;
                     } else {
-                        System.out
-                                .println(Colors.RED + "Too small, " + Colors.BOLD + (MAX_ATTEMPTS - i) + Colors.RESET
+                        String result = String
+                                .format(Colors.RED + "Too small, " + Colors.BOLD + (MAX_ATTEMPTS - i) + Colors.RESET
                                         + Colors.RED
                                         + " tries left" + Colors.RESET);
+                        System.out
+                                .println(result);
+                        gameResult += result;
                     }
                 } else {
-                    System.out.println(Colors.RED + "you loose, correct guess was: " + Colors.BOLD + randomNumber
-                            + Colors.RESET + Colors.RESET);
+                    String result = String
+                            .format(Colors.RED + "you loose, correct guess was: " + Colors.BOLD + randomNumber
+                                    + Colors.RESET + Colors.RESET);
+                    System.out.println(result);
+                    gameResult += result;
                 }
             }
             numberOfAttemptsMade = i;
         }
-        String gameResult = String.format("Succeeded in %d attempts", numberOfAttemptsMade + 1);
-        System.out.println(gameResult);
+        gameResult.concat(String.format("Succeeded in %d attempts", numberOfAttemptsMade + 1));
         return gameResult;
     }
 
@@ -80,21 +91,23 @@ public class MainGame {
     }
 
     public static void readResults(Path filePath) {
-    if (filePath != null && Files.exists(filePath)) {
-        try {
-            List<String> lines = Files.readAllLines(filePath);
-            System.out.println(Colors.YELLOW + "\n=== Game Results ===" + Colors.RESET);
-            for (String line : lines) {
-                System.out.println(line);
-            }
-        } catch (IOException e) {
-            System.out.println(Colors.RED + "Error reading the game results." + Colors.RESET);
-            e.printStackTrace();
-        }
-    } else {
-        System.out.println(Colors.RED + "No results found or file does not exist." + Colors.RESET);
-    }
-}
+        if (filePath != null && Files.exists(filePath)) {
 
+            try {
+
+                List<String> lines = Files.readAllLines(filePath);
+                System.out.println(Colors.YELLOW + "\n=== Game Results ===" + Colors.RESET);
+
+                for (int line = 0; line < lines.size(); line++) {
+                    System.out.printf(Colors.PURPLE + "Game %d: " + Colors.RESET + "%s\n",line + 1, lines.get(line));
+                }
+            } catch (IOException e) {
+                System.out.println(Colors.RED + "Error reading the game results." + Colors.RESET);
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println(Colors.RED + "No results found or file does not exist." + Colors.RESET);
+        }
+    }
 
 }
