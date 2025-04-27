@@ -8,8 +8,22 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class MainGame {
+    /**
+     * the path to the temporary file used to store the results of the current game
+     * session
+     */
     private static Path sessionTempFile;
 
+    /**
+     * Main game function where a user is allowed to guess a number for a limmited
+     * number of times
+     * 
+     * 
+     * @param MAX_ATTEMPTS the maximum number of attempts allowed
+     * @param scanner      scanner object used to read user input from standard
+     *                     input
+     * @return the result of each game session played by user
+     */
     public static String play(int MAX_ATTEMPTS, Scanner scanner) {
         Random random = new Random();
 
@@ -58,11 +72,25 @@ public class MainGame {
         return gameResult;
     }
 
+    /**
+     * Plays a game round and saves the result to a temporary file.
+     * 
+     * @param MAX_ATTEMPTS the maximum number of attempts allowed
+     * @param scanner      scanner object used to read user input from standard
+     *                     input
+     * @return the result of each game session played by user
+     */
     public static Path playAndSave(int MAX_ATTEMPTS, Scanner scanner) {
         String gameResults = MainGame.play(MAX_ATTEMPTS, scanner);
         return saveToFile(gameResults);
     }
 
+    /**
+     * Initializes a temporary file in memory for the current game session
+     * The file is automatically deleted when the game is exited
+     * 
+     * @return void
+     */
     public static void initSessionFile() {
         try {
             sessionTempFile = Files.createTempFile("game_results", ".log");
@@ -73,6 +101,13 @@ public class MainGame {
         }
     }
 
+    /**
+     * Saves the result of a game round played by a user to
+     * a temporary file in memory
+     * 
+     * @param result the result of a game round played by the user
+     * @return the path to the saved
+     */
     private static Path saveToFile(String result) {
         if (sessionTempFile == null) {
             System.out.println("Session file not initialized.");
@@ -90,6 +125,13 @@ public class MainGame {
         }
     }
 
+    /**
+     * Reads the results of the current game session
+     * 
+     * @param filePath the path to the file storing the result of the current game
+     *                 session
+     * @return void
+     */
     public static void readResults(Path filePath) {
         if (filePath != null && Files.exists(filePath)) {
 
@@ -99,7 +141,7 @@ public class MainGame {
                 System.out.println(Colors.YELLOW + "\n=== Game Results ===" + Colors.RESET);
 
                 for (int line = 0; line < lines.size(); line++) {
-                    System.out.printf(Colors.PURPLE + "Game %d: " + Colors.RESET + "%s\n",line + 1, lines.get(line));
+                    System.out.printf(Colors.PURPLE + "Game %d: " + Colors.RESET + "%s\n", line + 1, lines.get(line));
                 }
             } catch (IOException e) {
                 System.out.println(Colors.RED + "Error reading the game results." + Colors.RESET);
