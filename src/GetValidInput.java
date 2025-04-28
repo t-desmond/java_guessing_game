@@ -23,7 +23,7 @@ public class GetValidInput {
    * 
    * @param scanner scanner object used to read user input from standard
    *                input
-   * @return
+   * @return the valid response
    */
   public static boolean getValidContinueResponse(Scanner scanner) {
     String boldYes = Colors.BOLD + "yes";
