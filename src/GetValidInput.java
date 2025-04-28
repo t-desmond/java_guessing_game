@@ -1,6 +1,13 @@
 import java.util.Scanner;
 
 public class GetValidInput {
+  /**
+   * Repeatedly prompts the user for input until a valid integer is entered
+   * 
+   * @param scanner scanner object used to read user input from standard
+   *                input
+   * @return a valid integer entered by the user
+   */
   public static int getValidNumber(Scanner scanner) {
     while (!scanner.hasNextInt()) {
       System.out.print(Colors.PURPLE + "\nEnter a valid integer: " + Colors.RESET);
@@ -9,6 +16,15 @@ public class GetValidInput {
     return scanner.nextInt();
   }
 
+  /**
+   * Prompts the user at the end of a session to decide whether to continue or
+   * exit.
+   * Continues looping until the user enters a valid response ("yes" or "no").
+   * 
+   * @param scanner scanner object used to read user input from standard
+   *                input
+   * @return
+   */
   public static boolean getValidContinueResponse(Scanner scanner) {
     String boldYes = Colors.BOLD + "yes";
     String boldNo = Colors.BOLD + "no";
