@@ -1,4 +1,7 @@
+package com.guessinggame.ui;
 import java.util.Scanner;
+
+import com.guessinggame.util.Colors;
 
 public class GetValidInput {
   /**

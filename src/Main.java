@@ -1,6 +1,11 @@
 import java.util.Scanner;
 
-public class GuessingGame {
+import com.guessinggame.core.MainGame;
+import com.guessinggame.ui.GetValidInput;
+import com.guessinggame.ui.Menu;
+import com.guessinggame.util.Colors;
+
+public class Main {
     private static final int MAX_ATTEMPTS = 3;
 
     public static void main(String[] args) {
@@ -9,7 +14,7 @@ public class GuessingGame {
 
         Scanner scanner = new Scanner(System.in);
         boolean keepPlaying = true;
-
+        
         while (keepPlaying) {
             System.out.println();
             Menu.printMenu();

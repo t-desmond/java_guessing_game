@@ -1,3 +1,4 @@
+package com.guessinggame.util;
 public class Colors {
   // Text Colors
   public static final String RESET = "\u001B[0m";

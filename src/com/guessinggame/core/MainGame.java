@@ -1,3 +1,4 @@
+package com.guessinggame.core;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -6,6 +7,9 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
+import com.guessinggame.ui.GetValidInput;
+import com.guessinggame.util.Colors;
 
 public class MainGame {
     /**

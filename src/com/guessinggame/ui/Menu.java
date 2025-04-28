@@ -1,5 +1,9 @@
+package com.guessinggame.ui;
 import java.nio.file.Path;
 import java.util.Scanner;
+
+import com.guessinggame.core.MainGame;
+import com.guessinggame.util.Colors;
 
 public class Menu {
     private static Path lastGameResult = null;
