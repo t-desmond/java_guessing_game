@@ -1,4 +1,5 @@
 package com.guessinggame.ui;
+
 import java.util.Scanner;
 
 import com.guessinggame.util.Colors;
@@ -47,4 +48,30 @@ public class GetValidInput {
     return response.equals("yes");
   }
 
+  public static int selectDifficultyLevel(Scanner scanner) {
+
+    System.out.println("""
+        1. easy: (unlimited tries)[1-10]
+        2. medium: (5 tries)(1-50)
+        3. hard: (3 tries)(1-100)
+        """);
+        
+    int difficultyLevel;
+    while (true) {
+      System.out.print("Select difficulty level: ");
+      difficultyLevel = getValidNumber(scanner);
+      switch (difficultyLevel) {
+        case 1 -> {
+          return 1;
+        }
+        case 2 -> {
+          return 2;
+        }
+        case 3 -> {
+          return 3;
+        }
+        default -> System.out.println("Select valid difficulty level");
+      }
+    }
+  }
 }
