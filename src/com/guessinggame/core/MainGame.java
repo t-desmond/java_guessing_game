@@ -93,7 +93,7 @@ public class MainGame {
      *                     input
      * @return the result of each game session played by user
      */
-    public static Path playAndSave(int MAX_ATTEMPTS, Scanner scanner) {
+    public static Path playAndSave(Scanner scanner) {
         String gameResults = MainGame.play(scanner);
         return saveToFile(gameResults);
     }

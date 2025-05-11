@@ -25,13 +25,13 @@ public class Menu {
      * @param scanner      scanner object used to read user input from standard
      *                     input
      */
-    public static void menuChoice(int MAX_ATTEMPTS, Scanner scanner) {
+    public static void menuChoice(Scanner scanner) {
         System.out.print(Colors.BLUE + "Enter your choice: " + Colors.RESET);
         int choice = GetValidInput.getValidNumber(scanner);
 
         switch (choice) {
             case 1:
-                lastGameResult = MainGame.playAndSave(MAX_ATTEMPTS, scanner);
+                lastGameResult = MainGame.playAndSave(scanner);
                 break;
             case 2:
                 if (lastGameResult == null) {

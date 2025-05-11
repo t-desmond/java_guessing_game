@@ -6,8 +6,6 @@ import com.guessinggame.ui.Menu;
 import com.guessinggame.util.Colors;
 
 public class Main {
-    private static final int MAX_ATTEMPTS = 3;
-
     public static void main(String[] args) {
         MainGame.initSessionFile();
         System.out.println(Colors.YELLOW + Colors.BOLD + "\nWELCOME TO GUESSING GAME" + Colors.RESET);
@@ -18,7 +16,7 @@ public class Main {
         while (keepPlaying) {
             System.out.println();
             Menu.printMenu();
-            Menu.menuChoice(MAX_ATTEMPTS, scanner);
+            Menu.menuChoice(scanner);
 
             keepPlaying = GetValidInput.getValidContinueResponse(scanner);
             if (!keepPlaying) {
