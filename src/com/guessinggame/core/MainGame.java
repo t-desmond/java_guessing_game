@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import com.guessinggame.ui.GetValidInput;
 import com.guessinggame.util.Colors;
+import com.guessinggame.model.DifficultyProfile;
 
 public class MainGame {
     /**
@@ -28,17 +29,19 @@ public class MainGame {
      *                     input
      * @return the result of each game session played by user
      */
-    public static String play(int MAX_ATTEMPTS, Scanner scanner) {
+    public static String play(Scanner scanner) {
         Random random = new Random();
 
-        int randomNumber = random.nextInt(10);
-        System.out.println(randomNumber);
-
+        
         int numberOfAttemptsMade = 0;
         boolean gameSessionStatusSuccess = false;
         StringBuilder gameResult = new StringBuilder();
-
-        for (int i = 1; i <= MAX_ATTEMPTS; i++) {
+        
+        DifficultyProfile difficulty = GetValidInput.selectDifficultyLevel(scanner);
+        int randomNumber = random.nextInt(difficulty.getMaxNumber()) + 1;
+        System.out.println(randomNumber);
+        
+        for (int i = 1; i <= difficulty.getMaxAttempts(); i++) {
             System.out.print(Colors.BLUE + "Enter the number:  " + Colors.RESET);
             int userInput = GetValidInput.getValidNumber(scanner);
             if (userInput == randomNumber) {
@@ -48,16 +51,16 @@ public class MainGame {
                 gameSessionStatusSuccess = true;
                 break;
             } else {
-                if (i < MAX_ATTEMPTS) {
+                if (i < difficulty.getMaxAttempts()) {
                     if (userInput > randomNumber) {
                         String result = String.format(
-                                Colors.RED + "Too big, " + Colors.BOLD + (MAX_ATTEMPTS - i) + Colors.RESET + Colors.RED
+                                Colors.RED + "Too big, " + Colors.BOLD + (difficulty.getMaxAttempts() - i) + Colors.RESET + Colors.RED
                                         + " tries left" + Colors.RESET);
                         System.out.println(result);
                         gameResult.append(String.format(result + "; "));
                     } else {
                         String result = String
-                                .format(Colors.RED + "Too small, " + Colors.BOLD + (MAX_ATTEMPTS - i) + Colors.RESET
+                                .format(Colors.RED + "Too small, " + Colors.BOLD + (difficulty.getMaxAttempts() - i) + Colors.RESET
                                         + Colors.RED
                                         + " tries left" + Colors.RESET);
                         System.out
@@ -91,7 +94,7 @@ public class MainGame {
      * @return the result of each game session played by user
      */
     public static Path playAndSave(int MAX_ATTEMPTS, Scanner scanner) {
-        String gameResults = MainGame.play(MAX_ATTEMPTS, scanner);
+        String gameResults = MainGame.play(scanner);
         return saveToFile(gameResults);
     }
 
