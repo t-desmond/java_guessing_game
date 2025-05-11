@@ -3,6 +3,7 @@ package com.guessinggame.ui;
 import java.util.Scanner;
 
 import com.guessinggame.util.Colors;
+import com.guessinggame.model.DifficultyProfile;
 
 public class GetValidInput {
   /**
@@ -48,30 +49,29 @@ public class GetValidInput {
     return response.equals("yes");
   }
 
-  public static int selectDifficultyLevel(Scanner scanner) {
-
+public static DifficultyProfile selectDifficultyLevel(Scanner scanner) {
     System.out.println("""
-        1. easy: (unlimited tries)[1-10]
-        2. medium: (5 tries)(1-50)
-        3. hard: (3 tries)(1-100)
+        1. Easy   (unlimited tries) [1-10]
+        2. Medium (5 tries)         [1-50]
+        3. Hard   (3 tries)         [1-100]
         """);
-        
-    int difficultyLevel;
+
     while (true) {
-      System.out.print("Select difficulty level: ");
-      difficultyLevel = getValidNumber(scanner);
-      switch (difficultyLevel) {
-        case 1 -> {
-          return 1;
+        System.out.print("Select difficulty level: ");
+        int choice = getValidNumber(scanner);
+        switch (choice) {
+            case 1 -> {
+                return new DifficultyProfile("Easy", 10, Integer.MAX_VALUE);
+            }
+            case 2 -> {
+                return new DifficultyProfile("Medium", 50, 5);
+            }
+            case 3 -> {
+                return new DifficultyProfile("Hard", 100, 3);
+            }
+            default -> System.out.println("Select a valid difficulty level.");
         }
-        case 2 -> {
-          return 2;
-        }
-        case 3 -> {
-          return 3;
-        }
-        default -> System.out.println("Select valid difficulty level");
-      }
     }
-  }
+}
+
 }
