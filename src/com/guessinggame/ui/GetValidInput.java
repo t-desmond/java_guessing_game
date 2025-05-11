@@ -48,30 +48,34 @@ public class GetValidInput {
 
     return response.equals("yes");
   }
-
-public static DifficultyProfile selectDifficultyLevel(Scanner scanner) {
-    System.out.println("""
-        1. Easy   (unlimited tries) [1-10]
-        2. Medium (5 tries)         [1-50]
-        3. Hard   (3 tries)         [1-100]
-        """);
-
-    while (true) {
-        System.out.print("Select difficulty level: ");
-        int choice = getValidNumber(scanner);
-        switch (choice) {
-            case 1 -> {
-                return new DifficultyProfile("Easy", 10, Integer.MAX_VALUE);
-            }
-            case 2 -> {
-                return new DifficultyProfile("Medium", 50, 5);
-            }
-            case 3 -> {
-                return new DifficultyProfile("Hard", 100, 3);
-            }
-            default -> System.out.println("Select a valid difficulty level.");
-        }
-    }
-}
+  
+  public static DifficultyProfile selectDifficultyLevel(Scanner scanner) {
+      String easy = Colors.GREEN + Colors.BOLD + "1. Easy   " + Colors.RESET + "(unlimited tries) [1-10]";
+      String medium = Colors.YELLOW + Colors.BOLD + "2. Medium " + Colors.RESET + "(5 tries)         [1-50]";
+      String hard = Colors.RED + Colors.BOLD + "3. Hard   " + Colors.RESET + "(3 tries)         [1-100]";
+  
+      System.out.println("\n" + easy + "\n" + medium + "\n" + hard);
+  
+      while (true) {
+          System.out.print("Select difficulty level: ");
+          int choice = getValidNumber(scanner);
+          switch (choice) {
+              case 1 -> {
+                  System.out.println(Colors.GREEN + "You selected: EASY\n" + Colors.RESET);
+                  return new DifficultyProfile("Easy", 10, Integer.MAX_VALUE);
+              }
+              case 2 -> {
+                  System.out.println(Colors.YELLOW + "You selected: MEDIUM\n" + Colors.RESET);
+                  return new DifficultyProfile("Medium", 50, 5);
+              }
+              case 3 -> {
+                  System.out.println(Colors.RED + "You selected: HARD\n" + Colors.RESET);
+                  return new DifficultyProfile("Hard", 100, 3);
+              }
+              default -> System.out.println(Colors.PURPLE + "Select a valid difficulty level (1-3)." + Colors.RESET);
+          }
+      }
+  }
+  
 
 }
